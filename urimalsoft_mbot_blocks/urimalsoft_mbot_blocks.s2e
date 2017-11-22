@@ -1,0 +1,398 @@
+{
+    "extensionName": "Urimalsoft mBot Blocks",
+    "description": "A Demo Extension for Urimalsoft mBot software",
+    "version": "1.0.0",
+    "author": "urimalsoft@urimalsoft.co.kr",
+    "homepage": "www.facebook.com/baefoo91",
+    "sort": 0,
+    "javascriptURL": "js/urimalsoft_mbot_blocks.js",
+    "firmware": "1.0",
+    "extensionPort": 0,
+    "blockSpecs": [
+        [
+            "h",
+            "Urimalsoft mBot Program",
+            "runArduino",
+            {
+                "setup": "",
+                "inc": "#include <MeMCore.h>\n",
+                "def": "int _speed = 100;\nint _direction = 0;\n",
+                "work": "",
+                "loop": ""
+            }
+		],
+		[
+            "w",
+            "create %n length string variable array",
+            "createStringVariables",
+            5,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "String _strVars[{0}];",
+                "work": "",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "set index %n string variable to %s from array",
+            "setStringVariable",
+            0,
+            0,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_strVars[{0}] = String({1});\n",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "get index %n string variable from array",
+            "getStringVariable",
+            0,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_strVars[{0}]",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "create %n length integer variable array",
+            "createIntegerVariables",
+            5,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "int _intVars[{0}];",
+                "work": "",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "set index %n integer variable to %n from array",
+            "setIntegerVariable",
+            0,
+            0,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_intVars[{0}] = {1};\n",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "get index %n integer variable from array",
+            "getIntegerVariable",
+            0,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_intVars[{0}]",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "mbot stop",
+            "mbotStop",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "move(1, 0);\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "mbot move to %m.direction at speed %d.motorvalue immediately",
+            "mbotMoveToDirectionAtSpeed",
+            "forward",
+            50,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_direction={0};\n_speed={1};\nif(_speed<30){\n_speed = 30;\n}else if(_speed>255){\n_speed=255;\n}\nmove(_direction,_speed);\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "mbot move with direction and speed assigned",
+            "mbotMove",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "move(_direction,_speed);\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "set mbot direction to %m.direction",
+            "setMBotDirection",
+            "forward",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_direction={0};\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "set mbot speed at %d.motorvalue",
+            "setMBotSpeed",
+            50,
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "_speed={0};\nif(_speed<30){\n_speed = 30;\n}else if(_speed>255){\n_speed=255;\n}\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "change mbot speed with %d.motorvalue %m.calc",
+			"changeMBotSpeed",
+			50,
+            "plus",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "if({1}){\n_speed+={0};\n}else{\n_speed-={0};\n}\nif(_speed<30){\n_speed = 30;\n}else if(_speed>255){\n_speed=255;\n}\nmove(_direction,_speed);\n",
+                "loop": ""
+            }
+        ],
+        [
+            "w",
+            "write text %s into the serial",
+            "serialWriteText",
+            "Love",
+            {
+                "setup": "Serial.begin(115200);\n",
+                "inc": "",
+                "def": "",
+                "work": "Serial.print({0});\n",
+                "loop": ""
+            }
+        ],    
+		[
+            "b",
+            "data available in the serial",
+            "serialAvailable",
+            {
+                "setup": "Serial.begin(115200);\n",
+                "inc": "",
+                "def": "",
+                "work": "Serial.available()>0",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "read 1 byte from the serial",
+            "serialRead",
+            {
+                "setup": "Serial.begin(115200);\n",
+                "inc": "",
+                "def": "",
+                "work": "Serial.read()",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "read integer parsed from the serial",
+            "serialParseInt",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "Serial.parseInt()",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: MOTOR STOP",
+            "commandMotorStop",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "0",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: FORWARD",
+            "commandForward",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "1",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: BACKWARD",
+            "commandBackward",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "2",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: TURN LEFT",
+            "commandTurnLeft",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "3",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: TURN RIGHT",
+            "commandTurnRight",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "4",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: SPEED UP",
+            "commandSpeedUp",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "5",
+                "loop": ""
+            }
+        ],
+        [
+            "R",
+            "Command: SPEED DOWN",
+            "commandSpeedDown",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "6",
+                "loop": ""
+            }
+		],
+		[
+            "R",
+            "Command: SEND MESSAGE",
+            "commandSendMessage",
+            {
+                "setup": "",
+                "inc": "",
+                "def": "",
+                "work": "999",
+                "loop": ""
+            }
+        ]
+    ],
+    "menus": {
+        "direction": [
+            "forward",
+            "backward",
+            "turn left",
+            "turn right"
+        ],
+        "calc": [
+            "plus",
+            "minus"
+        ],
+        "motorvalue": [
+            30,
+            50,
+            70,
+            90,
+            110,
+            130,
+            150,
+            170,
+            190,
+            210,
+            230,
+            255
+        ]
+    },
+    "values": {
+        "forward": 1,
+        "backward": 2,
+        "turn left": 3,
+        "turn right": 4,
+        "plus": true,
+        "minus": false
+    },
+    "translators": {
+        "ko": {
+            "forward": "전진",
+            "backward": "후진",
+            "turn left": "좌회전",
+            "turn right": "우회전",
+            "stop": "정지",
+            "plus": "증가",
+            "minus": "감소",
+			"Urimalsoft mBot Program": "우리말소프트 엠봇 시작",
+			"create %n length string variable array": "%n 개의 문자열 변수 생성",
+			"set index %n string variable to %s from array": "%n 번째 문자열 변수에 %s 을(를) 할당",
+			"get index %n string variable from array": "%n 번째 문자열 변수의 값",
+            "create %n length integer variable array": "%n 개의 정수형 변수 생성",
+            "set index %n integer variable to %n from array": "%n 번째 정수형 변수에 %n 을 할당",
+            "get index %n integer variable from array": "%n 번째 정수형 변수의 값",
+            "mbot stop": "mBot 이동 정지",
+            "mbot move to %m.direction at speed %d.motorvalue immediately": "%m.direction 방향과 %d.motorvalue 속도로 즉시 이동",
+            "mbot move with direction and speed assigned": "예약된 방향과 속도로 이동",
+            "set mbot direction to %m.direction": "다음 이동 시 방향을 %m.direction 으로 예약",
+            "set mbot speed at %d.motorvalue": "다음 이동 시 속도를 %d.motorvalue 으로 예약",
+            "change mbot speed with %d.motorvalue %m.calc": "현재 속도를 %d.motorvalue 만큼 %m.calc",
+            "write text %s into the serial": "시리얼로 문자열 %s (을)를 전송",
+            "data available in the serial": "시리얼에 사용 가능한 데이터가 존재",
+            "read 1 byte from the serial": "시리얼에서 1 Byte 가져오기",
+			"read integer parsed from the serial": "시리얼에 전송된 모든 데이터를 정수로 변환한 값",
+			"Command: SPEED DOWN": "명령: 속도 감소",
+			"Command: SPEED UP": "명령: 속도 증가",
+			"Command: TURN RIGHT": "명령: 우회전",
+			"Command: TURN LEFT": "명령: 좌회전",
+			"Command: BACKWARD": "명령: 후진",
+			"Command: FORWARD": "명령: 전진",
+			"Command: MOTOR STOP": "명령: 정지",
+			"Command: SEND MESSAGE": "명령: 메세지 전송"
+        }
+    }
+}
