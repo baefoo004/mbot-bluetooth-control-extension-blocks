@@ -7,8 +7,8 @@ mblock extension blocks for mbot bluetooth(serial) control more than convenient.
 
 # todo and bug
 1. (bug) "urimalsoft mbot program" block: include and define statement not working when sometimes. If you use this block, Check code converted with arduino c like below.
-<code>#include <MeMCore.h></code>
-<code>int _direction = 0;</code>
-<code>int _speed = 100;</code>
+<pre><code>#include <MeMCore.h></code></pre>
+<pre><code>int _direction = 0;</code></pre>
+<pre><code>int _speed = 100;</code></pre>
 
  
